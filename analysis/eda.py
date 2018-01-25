@@ -79,11 +79,13 @@ with sns.axes_style("white"):
 # http://seaborn.pydata.org/generated/seaborn.clustermap.html
 plt.figure()
 sns.set(color_codes=True)
-y_defaults = credit.pop("default_next_m")
+#y_defaults = credit.pop("default_next_m")
+y_defaults = credit.default_next_m
 lut = dict(zip(y_defaults.unique(), "bg"))
 row_colors = y_defaults.map(lut)
 g = sns.clustermap(credit, row_colors=row_colors, standard_scale=1)
 g.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
                 + '/plots/cluster_heatmap')
+
 
 
