@@ -87,5 +87,36 @@ g = sns.clustermap(credit, row_colors=row_colors, standard_scale=1)
 g.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
                 + '/plots/cluster_heatmap')
 
+# Violin plot of limit balance distribution by education level per sex
+# Source:
+# http://seaborn.pydata.org/generated/seaborn.violinplot.html#seaborn.violinplot
+plt.figure()
+ax = sns.violinplot(x="EDUCATION", y="LIMIT_BAL", hue="SEX", data=credit, split=True)
+plt.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
+                + '/plots/violin-limitbalance-by-education-per-sex')
+
+# Build the logistic regression
+# Source:
+# https://machinelearningmastery.com/feature-selection-machine-learning-python/
+
+# Find total number of columns
+len(credit.columns)
+
+# Set X variables for the model
+# Slices all attributes except for 'default_next_m' into X
+X = credit[credit.columns[:24]]
+
+# Set Y variable for the model
+Y = credit['default_next_m']
+
+# Recursive Feature Selection for the top 10 performing variables
+model = LogisticRegression()
+rfe = RFE(model, 10)
+fit = rfe.fit(X, Y)
+
+print(fit)
+print("Number of Features: %d" % fit.n_features_)
+print("Selected Features: %s" % fit.support_)
+print("Feature Ranking: %s" % fit.ranking_)
 
 
