@@ -61,6 +61,8 @@ for ax, s in zip(axes.flat, np.linspace(0, 3, 10)):
 f.tight_layout()
 
 # Pretty correlation heat map matrix
+# Source:
+# http://seaborn.pydata.org/generated/seaborn.heatmap.html?highlight=heatmap#seaborn.heatmap
 corr = credit.corr(method='pearson')
 mask = np.zeros_like(corr)
 mask[np.triu_indices_from(mask)] = True
@@ -70,3 +72,18 @@ with sns.axes_style("white"):
                                     linewidths=.1, cmap="YlGnBu")
     plt.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
                 + '/plots/corr_heatmap')
+    
+
+# Cluster Heat Map
+# Source:
+# http://seaborn.pydata.org/generated/seaborn.clustermap.html
+plt.figure()
+sns.set(color_codes=True)
+y_defaults = credit.pop("default_next_m")
+lut = dict(zip(y_defaults.unique(), "bg"))
+row_colors = y_defaults.map(lut)
+g = sns.clustermap(credit, row_colors=row_colors, standard_scale=1)
+g.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
+                + '/plots/cluster_heatmap')
+
+
