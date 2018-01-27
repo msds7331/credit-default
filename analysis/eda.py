@@ -95,6 +95,20 @@ ax = sns.violinplot(x="EDUCATION", y="LIMIT_BAL", hue="SEX", data=credit, split=
 plt.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
                 + '/plots/violin-limitbalance-by-education-per-sex')
 
+# Scatter plot with categorical variables
+# Source:
+# http://seaborn.pydata.org/examples/scatterplot_categorical.html
+plt.figure()
+sns.set(style="whitegrid", palette="muted")
+
+# "Melt" the dataset to "long-form" or "tidy" representation
+credit_melted = pd.melt(credit, "MARRIAGE", var_name="EDUCATION")
+
+# Draw a categorical scatterplot to show each observation
+g = sns.swarmplot(x="EDUCATION", y="PAY_AMT1", hue="MARRIAGE", data=credit)
+plt.savefig('/Users/Jostein/Grad School/SMU/7331/project1/credit-default/'
+                + '/plots/swarmplot-payAmt1-by-education-per-marriage')
+
 # Build the logistic regression
 # Source:
 # https://machinelearningmastery.com/feature-selection-machine-learning-python/
